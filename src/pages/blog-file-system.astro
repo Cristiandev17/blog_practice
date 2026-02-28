@@ -1,10 +1,11 @@
 ---
-import { getCollection } from "astro:content";
 import BlogPost from "../components/BlogPost.astro";
 import { siteConfig } from "../config/site-config";
 import MainLayout from "../layouts/MainLayout.astro";
 
-const blogpopsts = await getCollection("blog");
+const posts = Object.values(
+  import.meta.glob("../pages/posts-old/*.{md,mdx}", { eager: true }),
+) as any[];
 ---
 
 <MainLayout title="Cristian's Blog">
@@ -17,9 +18,9 @@ const blogpopsts = await getCollection("blog");
         {siteConfig.title}
       </h1>
 
-      <!-- <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+      <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
         {posts.map((post) => <BlogPost {...post} />)}
-      </div> -->
+      </div>
     </div>
   </section>
 </MainLayout>
